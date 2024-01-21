@@ -1,0 +1,97 @@
+.form-container {
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: transparent transparent; /* For Firefox */
+
+  font-family: content-font;
+  overflow-y: auto;
+  width: 100%;
+
+  padding: 0 1rem;
+
+  button {
+    width: 6rem;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #e2e2e2;
+    border-style: none;
+
+    &:hover {
+      filter: brightness(90%);
+    }
+
+    &:active {
+      filter: brightness(80%);
+    }
+  }
+
+  h1,
+  h2 {
+    font-family: title-font;
+  }
+
+  h2 {
+    margin-bottom: 1.5rem;
+  }
+
+  & > div {
+    margin-top: 3.6rem;
+  }
+
+  & > div,
+  & > h1 {
+    box-shadow: rgba(0, 0, 0, 0.2) 1px 2px 8px;
+    background-color: white;
+    padding: 0.9rem;
+    border-radius: 0.4rem;
+  }
+}
+
+label {
+  display: block;
+  font-family: title-font;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 4px;
+  margin-bottom: 1rem;
+
+  input,
+  textarea {
+    border-radius: 5px;
+    height: 1.2rem;
+    padding: 4px;
+    font-size: 0.9rem;
+    border: 1px solid #e5e7eb;
+
+    &:focus::placeholder {
+      color: transparent;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+      border: 1px solid black;
+    }
+
+    &::placeholder {
+      opacity: 70%;
+    }
+  }
+
+  textarea {
+    height: 3rem;
+  }
+
+  span {
+    margin-left: 0.4rem;
+    font-size: 0.8rem;
+    color: gray;
+  }
+}
