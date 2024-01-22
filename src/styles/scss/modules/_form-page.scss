@@ -1,15 +1,38 @@
 .form-container {
-  &::-webkit-scrollbar {
-    width: 0;
-  }
   scrollbar-width: thin; /* For Firefox */
   scrollbar-color: transparent transparent; /* For Firefox */
-
   font-family: content-font;
   overflow-y: auto;
   width: 100%;
-
   padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+
+  // styling the form header
+  & > div > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .chevron {
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+
+    &.expanded {
+      transform: rotate(-180deg);
+    }
+
+    &.collapsed {
+      transform: rotate(0deg);
+    }
+  }
 
   button {
     width: 6rem;
@@ -33,20 +56,19 @@
     font-family: title-font;
   }
 
-  h2 {
-    margin-bottom: 1.5rem;
-  }
-
-  & > div {
-    margin-top: 3.6rem;
-  }
-
   & > div,
   & > h1 {
     box-shadow: rgba(0, 0, 0, 0.2) 1px 2px 8px;
     background-color: white;
     padding: 0.9rem;
     border-radius: 0.4rem;
+  }
+
+  // styling the content inside form
+  & > div {
+    display: flex;
+    flex-direction: column;
+    gap: 1.7rem;
   }
 }
 
@@ -61,6 +83,12 @@ label {
   width: 100%;
   gap: 4px;
   margin-bottom: 1rem;
+
+  span {
+    margin-left: 0.4rem;
+    font-size: 0.8rem;
+    color: gray;
+  }
 
   input,
   textarea {
@@ -87,11 +115,5 @@ label {
 
   textarea {
     height: 3rem;
-  }
-
-  span {
-    margin-left: 0.4rem;
-    font-size: 0.8rem;
-    color: gray;
   }
 }

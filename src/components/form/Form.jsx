@@ -7,8 +7,8 @@ export default function Form({ handleDataValue }) {
     <div className="form-container">
       <h1>CV Builder</h1>
       <BasicInfo handleDataValue={handleDataValue} />
-      <EducationInfo />
-      <WorkExperience />
+      <EducationInfo handleDataValue={handleDataValue} />
+      <WorkExperience handleDataValue={handleDataValue} />
     </div>
   );
 }

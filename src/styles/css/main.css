@@ -5,9 +5,28 @@
   overflow-y: auto;
   width: 100%;
   padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
 }
 .form-container::-webkit-scrollbar {
   width: 0;
+}
+.form-container > div > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.form-container .chevron {
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+.form-container .chevron.expanded {
+  transform: rotate(-180deg);
+}
+.form-container .chevron.collapsed {
+  transform: rotate(0deg);
 }
 .form-container button {
   width: 6rem;
@@ -27,17 +46,16 @@
 .form-container h2 {
   font-family: title-font;
 }
-.form-container h2 {
-  margin-bottom: 1.5rem;
-}
-.form-container > div {
-  margin-top: 3.6rem;
-}
 .form-container > div, .form-container > h1 {
   box-shadow: rgba(0, 0, 0, 0.2) 1px 2px 8px;
   background-color: white;
   padding: 0.9rem;
   border-radius: 0.4rem;
+}
+.form-container > div {
+  display: flex;
+  flex-direction: column;
+  gap: 1.7rem;
 }
 
 label {
@@ -51,6 +69,11 @@ label {
   width: 100%;
   gap: 4px;
   margin-bottom: 1rem;
+}
+.input-container span {
+  margin-left: 0.4rem;
+  font-size: 0.8rem;
+  color: gray;
 }
 .input-container input,
 .input-container textarea {
@@ -82,11 +105,6 @@ label {
 }
 .input-container textarea {
   height: 3rem;
-}
-.input-container span {
-  margin-left: 0.4rem;
-  font-size: 0.8rem;
-  color: gray;
 }
 
 .resume-container {

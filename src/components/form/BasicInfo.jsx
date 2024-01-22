@@ -1,26 +1,8 @@
 import { useState } from 'react';
 
-export default function BasicInfo({ handleDataValue }) {
-  const [input, setInput] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phoneNumber: '',
-    address: '',
-  });
-
-  function handleOnSubmit(e) {
-    e.preventDefault();
-    handleDataValue(input);
-  }
-
-  function handleInputChange(e) {
-    const { name, value } = e.target;
-    setInput((prevInput) => ({ ...prevInput, [name]: value }));
-  }
+function RenderForm({ handleOnSubmit, handleInputChange }) {
   return (
-    <div>
-      <h2>Basic Info</h2>
+    <>
       <form id="form-basic-info" onSubmit={handleOnSubmit}>
         <div className="input-container">
           <label htmlFor="first-name">First Name</label>
@@ -88,6 +70,47 @@ export default function BasicInfo({ handleDataValue }) {
 
         <button type="submit">Submit</button>
       </form>
+    </>
+  );
+}
+
+export default function BasicInfo({ handleDataValue }) {
+  const [input, setInput] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+    address: '',
+  });
+  const [isExpand, setIsExpand] = useState(false);
+
+  function handleToggleExpand() {
+    setIsExpand((prevValue) => !prevValue);
+  }
+
+  function handleOnSubmit(e) {
+    e.preventDefault();
+    handleDataValue(input);
+  }
+
+  function handleInputChange(e) {
+    const { name, value } = e.target;
+    setInput((prevInput) => ({ ...prevInput, [name]: value }));
+  }
+  return (
+    <div>
+      <div>
+        <h2>Basic Info</h2>
+        <span
+          className={`chevron ${isExpand ? 'expanded' : 'collapsed'}`}
+          onClick={handleToggleExpand}
+        >
+          <i className="fa-solid fa-chevron-down"></i>
+        </span>
+      </div>
+      {isExpand ? (
+        <RenderForm handleOnSubmit={handleOnSubmit} handleInputChange={handleInputChange} />
+      ) : null}
     </div>
   );
 }
