@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
-function RenderForm({ handleOnSubmit, handleInputChange }) {
+function RenderForm({ handleOnSubmit, handleInputChange, data }) {
+  const { degree, school, location, startDate, endDate } = data;
   return (
     <>
       <form id="form-education" onSubmit={handleOnSubmit}>
@@ -10,6 +11,7 @@ function RenderForm({ handleOnSubmit, handleInputChange }) {
             type="text"
             id="degree"
             name="degree"
+            value={degree}
             onChange={handleInputChange}
             placeholder="Enter your degree"
             required
@@ -22,6 +24,7 @@ function RenderForm({ handleOnSubmit, handleInputChange }) {
             type="text"
             id="school"
             name="school"
+            value={school}
             onChange={handleInputChange}
             placeholder="Enter your University name"
             required
@@ -34,6 +37,7 @@ function RenderForm({ handleOnSubmit, handleInputChange }) {
             type="text"
             id="location"
             name="location"
+            value={location}
             onChange={handleInputChange}
             placeholder="Enter your University location"
             required
@@ -46,6 +50,7 @@ function RenderForm({ handleOnSubmit, handleInputChange }) {
             type="date"
             id="start-date"
             name="startDate"
+            value={startDate}
             onChange={handleInputChange}
             required
           ></input>
@@ -57,6 +62,7 @@ function RenderForm({ handleOnSubmit, handleInputChange }) {
             type="date"
             id="end-date"
             name="endDate"
+            value={endDate}
             onChange={handleInputChange}
             required
           ></input>
@@ -68,15 +74,35 @@ function RenderForm({ handleOnSubmit, handleInputChange }) {
   );
 }
 
-export default function EducationInfo({ handleDataValue }) {
+function DisplayFormData({ data, handleEditForm }) {
+  const { degree, school, location, startDate, endDate } = data;
+
+  return (
+    <>
+      <p>{degree}</p>
+      <p>{school}</p>
+      <p>{location}</p>
+      <p>{startDate}</p>
+      <p>{endDate}</p>
+      <button onClick={handleEditForm}>Edit</button>
+    </>
+  );
+}
+
+export default function EducationInfo({ handleEducationValue }) {
   const [input, setInput] = useState({
     degree: '',
     school: '',
     location: '',
-    startDate: null,
-    endDate: null,
+    startDate: '',
+    endDate: '',
   });
   const [isExpand, setIsExpand] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
+  function handleEditForm() {
+    setFormSubmitted(false);
+  }
 
   function handleToggleExpand() {
     setIsExpand((prevValue) => !prevValue);
@@ -84,7 +110,8 @@ export default function EducationInfo({ handleDataValue }) {
 
   function handleOnSubmit(e) {
     e.preventDefault();
-    handleDataValue(input);
+    handleEducationValue(input);
+    setFormSubmitted(true);
   }
 
   function handleInputChange(e) {
@@ -103,8 +130,15 @@ export default function EducationInfo({ handleDataValue }) {
           <i className="fa-solid fa-chevron-down"></i>
         </span>
       </div>
-      {isExpand ? (
-        <RenderForm handleOnSubmit={handleOnSubmit} handleInputChange={handleInputChange} />
+      {isExpand && !formSubmitted ? (
+        <RenderForm
+          handleOnSubmit={handleOnSubmit}
+          handleInputChange={handleInputChange}
+          data={input}
+        />
+      ) : null}
+      {isExpand && formSubmitted ? (
+        <DisplayFormData data={input} handleEditForm={handleEditForm} />
       ) : null}
     </div>
   );

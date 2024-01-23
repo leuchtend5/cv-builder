@@ -1,6 +1,8 @@
 import { useState } from 'react';
 
-function RenderForm({ handleOnSubmit, handleInputChange }) {
+function RenderForm({ handleOnSubmit, handleInputChange, data }) {
+  const { jobTitle, companyName, startDate, endDate, location, description } = data;
+
   return (
     <>
       <form id="form-work-exp" onSubmit={handleOnSubmit}>
@@ -10,6 +12,7 @@ function RenderForm({ handleOnSubmit, handleInputChange }) {
             type="text"
             id="job-title"
             name="jobTitle"
+            value={jobTitle}
             onChange={handleInputChange}
             placeholder="Enter your position/job title"
             required
@@ -22,6 +25,7 @@ function RenderForm({ handleOnSubmit, handleInputChange }) {
             type="text"
             id="company-name"
             name="companyName"
+            value={companyName}
             onChange={handleInputChange}
             placeholder="Enter company name"
             required
@@ -34,6 +38,7 @@ function RenderForm({ handleOnSubmit, handleInputChange }) {
             type="date"
             id="start-date"
             name="startDate"
+            value={startDate}
             onChange={handleInputChange}
             required
           ></input>
@@ -45,6 +50,7 @@ function RenderForm({ handleOnSubmit, handleInputChange }) {
             type="date"
             id="end-date"
             name="endDate"
+            value={endDate}
             onChange={handleInputChange}
             required
           ></input>
@@ -59,6 +65,7 @@ function RenderForm({ handleOnSubmit, handleInputChange }) {
             type="text"
             id="location"
             name="location"
+            value={location}
             onChange={handleInputChange}
             placeholder="Enter your company location"
           ></input>
@@ -72,6 +79,7 @@ function RenderForm({ handleOnSubmit, handleInputChange }) {
           <textarea
             id="description"
             name="description"
+            value={description}
             onChange={handleInputChange}
             placeholder="Enter your job description"
           ></textarea>
@@ -83,16 +91,36 @@ function RenderForm({ handleOnSubmit, handleInputChange }) {
   );
 }
 
-export default function WorkExperience({ handleDataValue }) {
+function DisplayFormData({ data, handleEditForm }) {
+  const { jobTitle, companyName, startDate, endDate, location, description } = data;
+  return (
+    <>
+      <p>{jobTitle}</p>
+      <p>{companyName}</p>
+      <p>{startDate}</p>
+      <p>{endDate}</p>
+      <p>{location}</p>
+      <p>{description}</p>
+      <button onClick={handleEditForm}>Edit</button>
+    </>
+  );
+}
+
+export default function WorkExperience({ handleWorkExpValue }) {
   const [input, setInput] = useState({
     jobTitle: '',
     companyName: '',
-    startDate: null,
-    endDate: null,
+    startDate: '',
+    endDate: 'null',
     location: '',
     description: '',
   });
   const [isExpand, setIsExpand] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
+  function handleEditForm() {
+    setFormSubmitted(false);
+  }
 
   function handleToggleExpand() {
     setIsExpand((prevValue) => !prevValue);
@@ -100,7 +128,8 @@ export default function WorkExperience({ handleDataValue }) {
 
   function handleOnSubmit(e) {
     e.preventDefault();
-    handleDataValue(input);
+    handleWorkExpValue(input);
+    setFormSubmitted(true);
   }
 
   function handleInputChange(e) {
@@ -119,8 +148,15 @@ export default function WorkExperience({ handleDataValue }) {
           <i className="fa-solid fa-chevron-down"></i>
         </span>
       </div>
-      {isExpand ? (
-        <RenderForm handleOnSubmit={handleOnSubmit} handleInputChange={handleInputChange} />
+      {isExpand && !formSubmitted ? (
+        <RenderForm
+          handleOnSubmit={handleOnSubmit}
+          handleInputChange={handleInputChange}
+          data={input}
+        />
+      ) : null}
+      {isExpand && formSubmitted ? (
+        <DisplayFormData data={input} handleEditForm={handleEditForm} />
       ) : null}
     </div>
   );

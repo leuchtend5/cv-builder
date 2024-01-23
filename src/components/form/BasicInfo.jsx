@@ -1,6 +1,8 @@
 import { useState } from 'react';
 
-function RenderForm({ handleOnSubmit, handleInputChange }) {
+function RenderForm({ handleOnSubmit, handleInputChange, data }) {
+  const { firstName, lastName, email, phoneNumber, address } = data;
+
   return (
     <>
       <form id="form-basic-info" onSubmit={handleOnSubmit}>
@@ -10,6 +12,7 @@ function RenderForm({ handleOnSubmit, handleInputChange }) {
             type="text"
             id="first-name"
             name="firstName"
+            value={firstName}
             onChange={handleInputChange}
             placeholder="Enter your first name"
             required
@@ -22,6 +25,7 @@ function RenderForm({ handleOnSubmit, handleInputChange }) {
             type="text"
             id="last-name"
             name="lastName"
+            value={lastName}
             onChange={handleInputChange}
             placeholder="Enter your last name"
             required
@@ -34,6 +38,7 @@ function RenderForm({ handleOnSubmit, handleInputChange }) {
             type="email"
             id="email"
             name="email"
+            value={email}
             onChange={handleInputChange}
             placeholder="Enter your email"
             pattern="([a-zA-Z0-9\-\\_\.]+)@([a-zA-Z]+)\.(.+)"
@@ -47,6 +52,7 @@ function RenderForm({ handleOnSubmit, handleInputChange }) {
             type="tel"
             id="phone-number"
             name="phoneNumber"
+            value={phoneNumber}
             placeholder="Enter your phone number"
             onChange={handleInputChange}
             minLength={12}
@@ -62,6 +68,7 @@ function RenderForm({ handleOnSubmit, handleInputChange }) {
             type="text"
             id="address"
             name="address"
+            value={address}
             onChange={handleInputChange}
             placeholder="Enter your address"
             required
@@ -74,7 +81,21 @@ function RenderForm({ handleOnSubmit, handleInputChange }) {
   );
 }
 
-export default function BasicInfo({ handleDataValue }) {
+function DisplayFormData({ data, handleEditForm }) {
+  const { firstName, lastName, email, phoneNumber, address } = data;
+  return (
+    <>
+      <p>{firstName}</p>
+      <p>{lastName}</p>
+      <p>{email}</p>
+      <p>{phoneNumber}</p>
+      <p>{address}</p>
+      <button onClick={handleEditForm}>Edit</button>
+    </>
+  );
+}
+
+export default function BasicInfo({ handleBasicInfoValue }) {
   const [input, setInput] = useState({
     firstName: '',
     lastName: '',
@@ -83,6 +104,11 @@ export default function BasicInfo({ handleDataValue }) {
     address: '',
   });
   const [isExpand, setIsExpand] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
+  function handleEditForm() {
+    setFormSubmitted(false);
+  }
 
   function handleToggleExpand() {
     setIsExpand((prevValue) => !prevValue);
@@ -90,13 +116,15 @@ export default function BasicInfo({ handleDataValue }) {
 
   function handleOnSubmit(e) {
     e.preventDefault();
-    handleDataValue(input);
+    handleBasicInfoValue(input);
+    setFormSubmitted(true);
   }
 
   function handleInputChange(e) {
     const { name, value } = e.target;
     setInput((prevInput) => ({ ...prevInput, [name]: value }));
   }
+
   return (
     <div>
       <div>
@@ -108,8 +136,15 @@ export default function BasicInfo({ handleDataValue }) {
           <i className="fa-solid fa-chevron-down"></i>
         </span>
       </div>
-      {isExpand ? (
-        <RenderForm handleOnSubmit={handleOnSubmit} handleInputChange={handleInputChange} />
+      {isExpand && !formSubmitted ? (
+        <RenderForm
+          handleOnSubmit={handleOnSubmit}
+          handleInputChange={handleInputChange}
+          data={input}
+        />
+      ) : null}
+      {isExpand && formSubmitted ? (
+        <DisplayFormData data={input} handleEditForm={handleEditForm} />
       ) : null}
     </div>
   );

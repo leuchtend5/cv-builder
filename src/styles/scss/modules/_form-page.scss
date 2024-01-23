@@ -1,10 +1,15 @@
+form {
+  display: flex;
+  flex-direction: column;
+}
+
 .form-container {
   scrollbar-width: thin; /* For Firefox */
   scrollbar-color: transparent transparent; /* For Firefox */
   font-family: content-font;
   overflow-y: auto;
   width: 100%;
-  padding: 0 1rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   gap: 3rem;
@@ -41,6 +46,7 @@
     cursor: pointer;
     background-color: #e2e2e2;
     border-style: none;
+    align-self: center;
 
     &:hover {
       filter: brightness(90%);
@@ -97,6 +103,7 @@ label {
     padding: 4px;
     font-size: 0.9rem;
     border: 1px solid #e5e7eb;
+    background-color: white;
 
     &:focus::placeholder {
       color: transparent;
@@ -109,7 +116,7 @@ label {
     }
 
     &::placeholder {
-      opacity: 70%;
+      opacity: 50%;
     }
   }
 

@@ -2,13 +2,13 @@ import BasicInfo from './basicInfo';
 import EducationInfo from './EducationInfo';
 import WorkExperience from './WorkExperience';
 
-export default function Form({ handleDataValue }) {
+export default function Form({ handleBasicInfoValue, handleEducationValue, handleWorkExpValue }) {
   return (
     <div className="form-container">
       <h1>CV Builder</h1>
-      <BasicInfo handleDataValue={handleDataValue} />
-      <EducationInfo handleDataValue={handleDataValue} />
-      <WorkExperience handleDataValue={handleDataValue} />
+      <BasicInfo handleBasicInfoValue={handleBasicInfoValue} />
+      <EducationInfo handleEducationValue={handleEducationValue} />
+      <WorkExperience handleWorkExpValue={handleWorkExpValue} />
     </div>
   );
 }
