@@ -1,21 +1,15 @@
 export default function WorkExperienceView({ workExpValue }) {
-  const {
-    jobTitle = 'clerk',
-    companyName = 'pt asd',
-    startDate = 'november',
-    endDate = 'december',
-    location = 'jakarta',
-    description = 'happy',
-  } = workExpValue;
+  const { jobTitle, companyName, startDate, endDate, location, description } = workExpValue;
 
   return (
     <>
       <div className="resume-workexp">
-        <h2>Work Experience</h2>
+        <h3>Work Experience</h3>
         <div className="section-workexp">
           <div>
-            <p>{startDate}</p>
-            <p>{endDate}</p>
+            <p>
+              {startDate} - {endDate}
+            </p>
             <p>{location}</p>
           </div>
           <div>

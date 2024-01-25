@@ -19,7 +19,7 @@ form {
   }
 
   // styling the form header
-  & > div > div {
+  & > div > div:nth-child(1) {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -75,6 +75,11 @@ form {
     display: flex;
     flex-direction: column;
     gap: 1.7rem;
+  }
+
+  .display-form-data {
+    display: flex;
+    flex-direction: column;
   }
 }
 

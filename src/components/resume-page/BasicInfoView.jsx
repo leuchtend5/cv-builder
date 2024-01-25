@@ -1,11 +1,5 @@
 export default function BasicInfoView({ basicInfoValue }) {
-  const {
-    firstName = 'John',
-    lastName = 'Doe',
-    email = 'asd@gmail.com',
-    phoneNumber = '081234567898',
-    address = 'jakarta',
-  } = basicInfoValue;
+  const { firstName, lastName, email, phoneNumber, address } = basicInfoValue;
 
   return (
     <>
@@ -15,9 +9,18 @@ export default function BasicInfoView({ basicInfoValue }) {
           <p>{lastName}</p>
         </div>
         <div className="section-contact">
-          <p>{email}</p>
-          <p>{phoneNumber}</p>
-          <p>{address}</p>
+          <p>
+            <i className="fa-solid fa-envelope"></i>
+            {email}
+          </p>
+          <p>
+            <i className="fa-solid fa-phone"></i>
+            {phoneNumber}
+          </p>
+          <p>
+            <i className="fa-solid fa-location-dot"></i>
+            {address}
+          </p>
         </div>
       </div>
     </>

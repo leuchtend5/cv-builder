@@ -17,7 +17,7 @@ form {
 .form-container::-webkit-scrollbar {
   width: 0;
 }
-.form-container > div > div {
+.form-container > div > div:nth-child(1) {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -62,6 +62,10 @@ form {
   display: flex;
   flex-direction: column;
   gap: 1.7rem;
+}
+.form-container .display-form-data {
+  display: flex;
+  flex-direction: column;
 }
 
 label {
@@ -127,26 +131,79 @@ label {
   font-family: content-font;
   height: 90%;
   min-width: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
 }
 .resume-container > div h1,
-.resume-container > div h2 {
+.resume-container > div h3 {
   font-family: title-font;
 }
-.resume-container > div .resume-header {
+.resume-container .resume-header {
   background-color: #0e374e;
   padding: 2rem;
   color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 12px;
 }
-.resume-container > div .resume-header .section-name {
+.resume-container .resume-header .section-name {
   display: flex;
   flex-direction: row;
+  gap: 8px;
+  font-family: title-font;
+  font-size: 2.5rem;
 }
-.resume-container > div .resume-header .section-contact {
+.resume-container .resume-header .section-contact {
   display: flex;
   flex-direction: row;
+  gap: 15px;
+  font-size: 1.2rem;
+}
+.resume-container .resume-header .section-contact > p {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.resume-container .resume-education,
+.resume-container .resume-workexp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 100px;
+  text-align: center;
+  font-size: 1.1rem;
+}
+.resume-container .resume-education h3,
+.resume-container .resume-workexp h3 {
+  background-color: #ededed;
+  padding: 10px 0;
+}
+.resume-container .resume-education h3,
+.resume-container .resume-education .section-education,
+.resume-container .resume-education .section-workexp,
+.resume-container .resume-workexp h3,
+.resume-container .resume-workexp .section-education,
+.resume-container .resume-workexp .section-workexp {
+  width: 100%;
+}
+.resume-container .resume-education .section-education,
+.resume-container .resume-education .section-workexp,
+.resume-container .resume-workexp .section-education,
+.resume-container .resume-workexp .section-workexp {
+  display: flex;
+  padding: 10px 0;
+  gap: 50px;
+  text-align: left;
+}
+.resume-container .resume-education .section-education div:nth-child(2) > p:nth-child(1),
+.resume-container .resume-education .section-workexp div:nth-child(2) > p:nth-child(1),
+.resume-container .resume-workexp .section-education div:nth-child(2) > p:nth-child(1),
+.resume-container .resume-workexp .section-workexp div:nth-child(2) > p:nth-child(1) {
+  font-weight: bolder;
+  font-family: title-font;
+  font-size: 1.2rem;
 }
 
 @font-face {

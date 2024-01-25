@@ -84,14 +84,14 @@ function RenderForm({ handleOnSubmit, handleInputChange, data }) {
 function DisplayFormData({ data, handleEditForm }) {
   const { firstName, lastName, email, phoneNumber, address } = data;
   return (
-    <>
+    <div className="display-form-data">
       <p>{firstName}</p>
       <p>{lastName}</p>
       <p>{email}</p>
       <p>{phoneNumber}</p>
       <p>{address}</p>
       <button onClick={handleEditForm}>Edit</button>
-    </>
+    </div>
   );
 }
 

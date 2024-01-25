@@ -94,7 +94,7 @@ function RenderForm({ handleOnSubmit, handleInputChange, data }) {
 function DisplayFormData({ data, handleEditForm }) {
   const { jobTitle, companyName, startDate, endDate, location, description } = data;
   return (
-    <>
+    <div className="display-form-data">
       <p>{jobTitle}</p>
       <p>{companyName}</p>
       <p>{startDate}</p>
@@ -102,7 +102,7 @@ function DisplayFormData({ data, handleEditForm }) {
       <p>{location}</p>
       <p>{description}</p>
       <button onClick={handleEditForm}>Edit</button>
-    </>
+    </div>
   );
 }
 

@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { nanoid } from 'nanoid';
 
-function RenderForm({ handleOnSubmit, handleInputChange, data }) {
-  const { degree, school, location, startDate, endDate } = data;
+function RenderForm({ handleOnSubmit, handleInputChange, data, formSubmitted }) {
+  const { id, degree, school, location, startDate, endDate } = data;
   return (
     <>
-      <form id="form-education" onSubmit={handleOnSubmit}>
+      <form id="form-education" onSubmit={(e) => handleOnSubmit(e, id)}>
+        <input type="hidden" name="id" value={id} />
         <div className="input-container">
           <label htmlFor="degree">Degree</label>
           <input
@@ -68,29 +70,34 @@ function RenderForm({ handleOnSubmit, handleInputChange, data }) {
           ></input>
         </div>
 
-        <button>Submit</button>
+        {formSubmitted ? <button>Save</button> : <button>Submit</button>}
+        {/* <button>Submit</button> */}
       </form>
     </>
   );
 }
 
-function DisplayFormData({ data, handleEditForm }) {
-  const { degree, school, location, startDate, endDate } = data;
-
+function DisplayFormData({ data, handleEditForm, handleAddNewData }) {
   return (
     <>
-      <p>{degree}</p>
-      <p>{school}</p>
-      <p>{location}</p>
-      <p>{startDate}</p>
-      <p>{endDate}</p>
-      <button onClick={handleEditForm}>Edit</button>
+      {data.map((item) => (
+        <div className="display-form-data" key={item.id}>
+          <p>{item.degree}</p>
+          <p>{item.school}</p>
+          <p>{item.location}</p>
+          <p>{item.startDate}</p>
+          <p>{item.endDate}</p>
+          <button onClick={() => handleEditForm(item)}>Edit</button>
+        </div>
+      ))}
+      <button onClick={handleAddNewData}>Add</button>
     </>
   );
 }
 
 export default function EducationInfo({ handleEducationValue }) {
   const [input, setInput] = useState({
+    id: nanoid(),
     degree: '',
     school: '',
     location: '',
@@ -99,17 +106,53 @@ export default function EducationInfo({ handleEducationValue }) {
   });
   const [isExpand, setIsExpand] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [education, setEducation] = useState([]);
 
-  function handleEditForm() {
+  function handleEditForm(data) {
     setFormSubmitted(false);
+    setInput({
+      id: data.id,
+      degree: data.degree,
+      school: data.school,
+      location: data.location,
+      startDate: data.startDate,
+      endDate: data.endDate,
+    });
+  }
+
+  function handleAddNewData() {
+    setFormSubmitted(false);
+    setInput({
+      id: nanoid(),
+      degree: '',
+      school: '',
+      location: '',
+      startDate: '',
+      endDate: '',
+    });
   }
 
   function handleToggleExpand() {
     setIsExpand((prevValue) => !prevValue);
   }
 
-  function handleOnSubmit(e) {
+  function handleOnSubmit(e, id) {
     e.preventDefault();
+    const checkIdInArray = education.some((item) => item.id === id);
+    if (checkIdInArray) {
+      setEducation((prevEducation) => {
+        return prevEducation.map((item) => {
+          if (item.id === id) {
+            // Update the existing item with new values from the input state
+            return { ...item, ...input };
+          }
+          return item;
+        });
+      });
+    } else {
+      setEducation((prevEducation) => [...prevEducation, input]);
+    }
+
     handleEducationValue(input);
     setFormSubmitted(true);
   }
@@ -135,10 +178,15 @@ export default function EducationInfo({ handleEducationValue }) {
           handleOnSubmit={handleOnSubmit}
           handleInputChange={handleInputChange}
           data={input}
+          formSubmitted={formSubmitted}
         />
       ) : null}
       {isExpand && formSubmitted ? (
-        <DisplayFormData data={input} handleEditForm={handleEditForm} />
+        <DisplayFormData
+          data={education}
+          handleEditForm={handleEditForm}
+          handleAddNewData={handleAddNewData}
+        />
       ) : null}
     </div>
   );
