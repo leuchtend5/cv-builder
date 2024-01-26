@@ -20,7 +20,6 @@ export default function WorkExperienceView({ workExpValue }) {
   return (
     <>
       <div className="resume-workexp">
-        {console.log('asd')}
         <h3>Work Experience</h3>
         <div className="section-workexp">
           {workExpValue.map((item) => (
