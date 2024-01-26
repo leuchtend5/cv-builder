@@ -76,9 +76,9 @@
     .section-education,
     .section-workexp {
       display: flex;
+      flex-direction: column;
       padding: 10px 0;
-      gap: 50px;
-      text-align: left;
+      gap: 30px;
 
       div:nth-child(2) > p:nth-child(1) {
         font-weight: bolder;
@@ -86,5 +86,12 @@
         font-size: 1.2rem;
       }
     }
+  }
+
+  .edu-data-container,
+  .workexp-data-container {
+    display: flex;
+    gap: 50px;
+    text-align: left;
   }
 }

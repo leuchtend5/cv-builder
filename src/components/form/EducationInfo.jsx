@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { nanoid } from 'nanoid';
 
-function RenderForm({ handleOnSubmit, handleInputChange, data, formSubmitted }) {
+function RenderForm({ handleOnSubmit, handleInputChange, data }) {
   const { id, degree, school, location, startDate, endDate } = data;
   return (
     <>
       <form id="form-education" onSubmit={(e) => handleOnSubmit(e, id)}>
-        <input type="hidden" name="id" value={id} />
         <div className="input-container">
           <label htmlFor="degree">Degree</label>
           <input
@@ -70,8 +69,7 @@ function RenderForm({ handleOnSubmit, handleInputChange, data, formSubmitted }) 
           ></input>
         </div>
 
-        {formSubmitted ? <button>Save</button> : <button>Submit</button>}
-        {/* <button>Submit</button> */}
+        <button>Submit</button>
       </form>
     </>
   );
@@ -153,7 +151,6 @@ export default function EducationInfo({ handleEducationValue }) {
       setEducation((prevEducation) => [...prevEducation, input]);
     }
 
-    handleEducationValue(input);
     setFormSubmitted(true);
   }
 
@@ -161,6 +158,8 @@ export default function EducationInfo({ handleEducationValue }) {
     const { name, value } = e.target;
     setInput((prevInput) => ({ ...prevInput, [name]: value }));
   }
+
+  handleEducationValue(education);
 
   return (
     <div>
@@ -178,7 +177,6 @@ export default function EducationInfo({ handleEducationValue }) {
           handleOnSubmit={handleOnSubmit}
           handleInputChange={handleInputChange}
           data={input}
-          formSubmitted={formSubmitted}
         />
       ) : null}
       {isExpand && formSubmitted ? (

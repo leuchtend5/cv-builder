@@ -1,22 +1,30 @@
-export default function WorkExperienceView({ workExpValue }) {
-  const { jobTitle, companyName, startDate, endDate, location, description } = workExpValue;
+function RenderView({ data }) {
+  return (
+    <div className="workexp-data-container">
+      <div>
+        <p>
+          {data.startDate} - {data.endDate}
+        </p>
+        <p>{data.location}</p>
+      </div>
+      <div>
+        <p>{data.companyName}</p>
+        <p>{data.jobTitle}</p>
+        <p>{data.description}</p>
+      </div>
+    </div>
+  );
+}
 
+export default function WorkExperienceView({ workExpValue }) {
   return (
     <>
       <div className="resume-workexp">
         <h3>Work Experience</h3>
         <div className="section-workexp">
-          <div>
-            <p>
-              {startDate} - {endDate}
-            </p>
-            <p>{location}</p>
-          </div>
-          <div>
-            <p>{companyName}</p>
-            <p>{jobTitle}</p>
-            <p>{description}</p>
-          </div>
+          {workExpValue.map((item) => (
+            <RenderView data={item} key={item.id} />
+          ))}
         </div>
       </div>
     </>

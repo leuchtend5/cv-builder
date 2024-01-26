@@ -1,11 +1,12 @@
+import { nanoid } from 'nanoid';
 import { useState } from 'react';
 
 function RenderForm({ handleOnSubmit, handleInputChange, data }) {
-  const { jobTitle, companyName, startDate, endDate, location, description } = data;
+  const { id, jobTitle, companyName, startDate, endDate, location, description } = data;
 
   return (
     <>
-      <form id="form-work-exp" onSubmit={handleOnSubmit}>
+      <form id="form-work-exp" onSubmit={(e) => handleOnSubmit(e, id)}>
         <div className="input-container">
           <label htmlFor="job-title">Job Title</label>
           <input
@@ -91,44 +92,86 @@ function RenderForm({ handleOnSubmit, handleInputChange, data }) {
   );
 }
 
-function DisplayFormData({ data, handleEditForm }) {
-  const { jobTitle, companyName, startDate, endDate, location, description } = data;
+function DisplayFormData({ data, handleEditForm, handleAddNewData }) {
   return (
-    <div className="display-form-data">
-      <p>{jobTitle}</p>
-      <p>{companyName}</p>
-      <p>{startDate}</p>
-      <p>{endDate}</p>
-      <p>{location}</p>
-      <p>{description}</p>
-      <button onClick={handleEditForm}>Edit</button>
-    </div>
+    <>
+      {data.map((item) => (
+        <div className="display-form-data" key={item.id}>
+          <p>{item.jobTitle}</p>
+          <p>{item.companyName}</p>
+          <p>{item.startDate}</p>
+          <p>{item.endDate}</p>
+          <p>{item.location}</p>
+          <p>{item.description}</p>
+          <button onClick={() => handleEditForm(item)}>Edit</button>
+        </div>
+      ))}
+      <button onClick={handleAddNewData}>Add</button>
+    </>
   );
 }
 
 export default function WorkExperience({ handleWorkExpValue }) {
   const [input, setInput] = useState({
+    id: nanoid(),
     jobTitle: '',
     companyName: '',
     startDate: '',
-    endDate: 'null',
+    endDate: '',
     location: '',
     description: '',
   });
   const [isExpand, setIsExpand] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [workExp, setWorkExp] = useState([]);
 
-  function handleEditForm() {
+  function handleEditForm(data) {
     setFormSubmitted(false);
+    setInput({
+      id: data.id,
+      jobTitle: data.jobTitle,
+      companyName: data.companyName,
+      startDate: data.startDate,
+      endDate: data.endDate,
+      location: data.location,
+      description: data.description,
+    });
+  }
+
+  function handleAddNewData() {
+    setFormSubmitted(false);
+    setInput({
+      id: nanoid(),
+      jobTitle: '',
+      companyName: '',
+      startDate: '',
+      endDate: '',
+      location: '',
+      description: '',
+    });
   }
 
   function handleToggleExpand() {
     setIsExpand((prevValue) => !prevValue);
   }
 
-  function handleOnSubmit(e) {
+  function handleOnSubmit(e, id) {
     e.preventDefault();
-    handleWorkExpValue(input);
+    const checkIdInArray = workExp.some((item) => item.id === id);
+    if (checkIdInArray) {
+      setWorkExp((prevWorkExp) => {
+        return prevWorkExp.map((item) => {
+          if (item.id === id) {
+            // Update the existing item with new values from the input state
+            return { ...item, ...input };
+          }
+          return item;
+        });
+      });
+    } else {
+      setWorkExp((prevWorkExp) => [...prevWorkExp, input]);
+    }
+
     setFormSubmitted(true);
   }
 
@@ -136,6 +179,8 @@ export default function WorkExperience({ handleWorkExpValue }) {
     const { name, value } = e.target;
     setInput((prevInput) => ({ ...prevInput, [name]: value }));
   }
+
+  handleWorkExpValue(workExp);
 
   return (
     <div>
@@ -156,7 +201,11 @@ export default function WorkExperience({ handleWorkExpValue }) {
         />
       ) : null}
       {isExpand && formSubmitted ? (
-        <DisplayFormData data={input} handleEditForm={handleEditForm} />
+        <DisplayFormData
+          data={workExp}
+          handleEditForm={handleEditForm}
+          handleAddNewData={handleAddNewData}
+        />
       ) : null}
     </div>
   );
