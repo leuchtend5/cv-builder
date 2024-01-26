@@ -193,9 +193,9 @@ label {
 .resume-container .resume-workexp .section-education,
 .resume-container .resume-workexp .section-workexp {
   display: flex;
+  flex-direction: column;
   padding: 10px 0;
-  gap: 50px;
-  text-align: left;
+  gap: 30px;
 }
 .resume-container .resume-education .section-education div:nth-child(2) > p:nth-child(1),
 .resume-container .resume-education .section-workexp div:nth-child(2) > p:nth-child(1),
@@ -204,6 +204,12 @@ label {
   font-weight: bolder;
   font-family: title-font;
   font-size: 1.2rem;
+}
+.resume-container .edu-data-container,
+.resume-container .workexp-data-container {
+  display: flex;
+  gap: 50px;
+  text-align: left;
 }
 
 @font-face {
