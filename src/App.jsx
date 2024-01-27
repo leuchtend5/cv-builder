@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Form from './components/form/Form';
-import Resume from './components/resume-page/resume';
+import Resume from './components/resume-page/Resume';
 
 export default function App() {
   const [basicInfoValue, setBasicInfoValue] = useState('');
