@@ -5,7 +5,7 @@ import Resume from './components/resume-page/resume';
 export default function App() {
   const [basicInfoValue, setBasicInfoValue] = useState('');
   const [educationValue, setEducationValue] = useState([]);
-  const [workExpValue, setWorkExpValue] = useState('');
+  const [workExpValue, setWorkExpValue] = useState([]);
 
   function handleBasicInfoValue(data) {
     setBasicInfoValue(data);
