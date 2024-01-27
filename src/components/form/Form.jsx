@@ -1,4 +1,4 @@
-import BasicInfo from './basicInfo';
+import BasicInfo from './BasicInfo';
 import EducationInfo from './EducationInfo';
 import WorkExperience from './WorkExperience';
 
