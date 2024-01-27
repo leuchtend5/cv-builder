@@ -7,25 +7,13 @@ export default function App() {
   const [educationValue, setEducationValue] = useState([]);
   const [workExpValue, setWorkExpValue] = useState([]);
 
-  function handleBasicInfoValue(data) {
-    setBasicInfoValue(data);
-  }
-
-  function handleEducationValue(data) {
-    setEducationValue(data);
-  }
-
-  function handleWorkExpValue(data) {
-    setWorkExpValue(data);
-  }
-
   return (
     <>
       <div className="main-container">
         <Form
-          handleBasicInfoValue={handleBasicInfoValue}
-          handleEducationValue={handleEducationValue}
-          handleWorkExpValue={handleWorkExpValue}
+          handleBasicInfoValue={setBasicInfoValue}
+          handleEducationValue={setEducationValue}
+          handleWorkExpValue={setWorkExpValue}
         />
         <Resume
           basicInfoValue={basicInfoValue}

@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function RenderForm({ handleOnSubmit, handleInputChange, data }) {
   const { id, jobTitle, companyName, startDate, endDate, location, description } = data;
@@ -180,7 +180,10 @@ export default function WorkExperience({ handleWorkExpValue }) {
     setInput((prevInput) => ({ ...prevInput, [name]: value }));
   }
 
-  handleWorkExpValue(workExp);
+  // handleWorkExpValue(workExp);
+  useEffect(() => {
+    handleWorkExpValue(workExp);
+  }, [workExp, handleWorkExpValue]);
 
   return (
     <div>

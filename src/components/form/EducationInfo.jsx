@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 
 function RenderForm({ handleOnSubmit, handleInputChange, data }) {
@@ -159,7 +159,10 @@ export default function EducationInfo({ handleEducationValue }) {
     setInput((prevInput) => ({ ...prevInput, [name]: value }));
   }
 
-  handleEducationValue(education);
+  // handleEducationValue(education);
+  useEffect(() => {
+    handleEducationValue(education);
+  }, [education, handleEducationValue]);
 
   return (
     <div>
